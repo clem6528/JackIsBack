@@ -1,21 +1,30 @@
 package src;
+
 public class Card {
-    public String suit;
-    public String rank;
-    public Card(String suit, String rank) {
+    public enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES }
+    public enum Rank { TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE }
+
+    public final Suit suit;
+    public final Rank rank;
+
+    public Card(Suit suit, Rank rank) {
         this.suit = suit;
         this.rank = rank;
     }
-    public String toString() { return rank + " de " + suit; }
 
-    // Retourne la valeur de la carte pour le Black Jack (hors gestion spéciale de l'As)
     public int getValue() {
         switch (rank) {
-            case "As": return 11;
-            case "Roi":
-            case "Dame":
-            case "Valet": return 10;
-            default: return Integer.parseInt(rank);
+            case JACK: case QUEEN: case KING:
+                return 10;
+            case ACE:
+                return 11;
+            default:
+                return rank.ordinal() + 2;
         }
+    }
+
+    @Override
+    public String toString() {
+        return rank + " of " + suit;
     }
 }

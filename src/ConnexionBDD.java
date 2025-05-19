@@ -4,7 +4,7 @@ import java.sql.*;
 public class ConnexionBDD {
     private static Connection cn;
     public static void connect() {
-        String url = "jdbc:mysql://mysql02.pedagogie.enit.fr/db_structure.php?server=1&db=JackIsBack";
+        String url = "jdbc:mysql://mysql02.pedagogie.enit.fr/db_structure.php?server=1&db=GestioCommande";
         String login = "student";
         String password = "Enit@65";
         try {

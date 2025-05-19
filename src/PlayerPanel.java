@@ -1,12 +1,8 @@
 package src;
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
 
 public class PlayerPanel extends JPanel {
     private JLabel lblMise;
@@ -20,9 +16,11 @@ public class PlayerPanel extends JPanel {
     private List<Card> hand = new ArrayList<>();
     private Deck deck;
     private boolean hasPlayed = false;
+    private String playerName;
 
     public PlayerPanel(String name, Deck deck) {
         this.deck = deck;
+        this.playerName = name;
         setBorder(BorderFactory.createTitledBorder(name));
         setLayout(new GridLayout(6, 1));
 
@@ -50,10 +48,10 @@ public class PlayerPanel extends JPanel {
                 updateHandDisplay();
                 points = Utils.handValue(hand);
                 lblScore.setText("Score: " + points);
-                hasPlayed = true;
-                btnTirer.setEnabled(false);
-                btnRester.setEnabled(false);
                 if (points >= 21) {
+                    hasPlayed = true;
+                    btnTirer.setEnabled(false);
+                    btnRester.setEnabled(false);
                     if (points > 21) {
                         JOptionPane.showMessageDialog(this, "Dépassement de 21 ! Vous avez perdu.");
                     } else if (points == 21) {
@@ -110,7 +108,11 @@ public class PlayerPanel extends JPanel {
         return points;
     }
 
-    public List<Card> getHand() {
-        return hand;
+    public boolean hasPlayed() {
+        return hasPlayed;
+    }
+
+    public String getPlayerName() {
+        return playerName;
     }
 }
