@@ -18,10 +18,10 @@ public class PlayerPanel extends JPanel { // Classe représentant le panneau d'u
     private boolean hasPlayed = false; // Indicateur si le joueur a joué son tour
     private String playerName; // Nom du joueur
 
-    public PlayerPanel(String name, Deck deck) { // Constructeur de la classe PlayerPanel
+    public PlayerPanel(String name, int victoire, Deck deck) { // Constructeur de la classe PlayerPanel
         this.deck = deck; // Paquet de cartes du jeu
         this.playerName = name; // Nom du joueur
-        setBorder(BorderFactory.createTitledBorder(name)); // Crée une bordure avec le nom du joueur
+        setBorder(BorderFactory.createTitledBorder(name +". A "+ victoire +" victoires")); // Crée une bordure avec le nom du joueur
         setLayout(new GridLayout(6, 1)); // Définit la disposition du panneau
 
         lblMise = new JLabel("Mise: 0€"); // Label pour afficher la mise

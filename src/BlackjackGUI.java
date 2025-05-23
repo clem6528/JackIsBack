@@ -1,6 +1,7 @@
 package src;
 import javax.swing.*;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BlackjackGUI extends JFrame {
@@ -19,9 +20,16 @@ public class BlackjackGUI extends JFrame {
         int nbJoueurs = demanderNombreJoueurs();
         ArrayList<String> noms = demanderNomsJoueurs(nbJoueurs);
 
+        //récupérer les victoires
+        ArrayList<Integer> victoire = new ArrayList<>();
+        for (int i =0; i < nbJoueurs; i++) {
+            int victoires = PlayerDAO.getVictoires(noms.get(i));
+            victoire.add(victoires);
+        }
+        
         playersPanel.setLayout(new GridLayout(1, nbJoueurs));
-        for (String nom : noms) {
-            PlayerPanel pp = new PlayerPanel(nom, deck);
+        for (int i = 0; i < nbJoueurs; i++) {
+            PlayerPanel pp = new PlayerPanel(noms.get(i), victoire.get(i), deck);
             playerPanels.add(pp);
             playersPanel.add(pp);
         }
@@ -45,6 +53,7 @@ public class BlackjackGUI extends JFrame {
         String input = JOptionPane.showInputDialog(this, "Nombre de joueurs (1-4) :", "2");
         try {
             int n = Integer.parseInt(input);
+            System.out.println(Math.max(1, Math.min(4, n)));
             return Math.max(1, Math.min(4, n));
         } catch (Exception e) {
             return 2;

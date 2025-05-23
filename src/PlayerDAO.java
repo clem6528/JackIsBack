@@ -29,4 +29,22 @@ public class PlayerDAO {
             check.close();
         } catch (Exception e) { e.printStackTrace(); }
     }
+
+    // Ajoute cette méthode pour récupérer le nombre de victoires
+    public static int getVictoires(String nom) {
+        int victoires = 0;
+        try {
+            Connection cn = ConnexionBDD.getConnection();
+            PreparedStatement ps = cn.prepareStatement("SELECT victoires FROM joueur WHERE nom = ?");
+            ps.setString(1, nom);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                victoires = rs.getInt("victoires");
+                System.out.print(victoires);
+            }
+            rs.close();
+            ps.close();
+        } catch (Exception e) { e.printStackTrace(); }
+        return victoires;
+    }
 }
