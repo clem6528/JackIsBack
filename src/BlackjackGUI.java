@@ -119,7 +119,7 @@ public class BlackjackGUI extends JFrame {
             PlayerPanel winner = winners.get(0); // Un seul gagnant
             resultats.append(winner.getPlayerName()).append(" est le plus proche du croupier et gagne !");
             for (PlayerPanel pp : playerPanels) {
-                PlayerDAO.save(new Player(pp.getPlayerName()), pp == winner);
+                PlayerDAO.save(new Player(pp.getPlayerName()), pp == winner); // Enregistre la victoire du gagnant
             }
         } else if (dealerScore <= 21 && winners.isEmpty()) {
             resultats.append("Aucun joueur n'a battu le croupier !");
