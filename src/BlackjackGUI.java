@@ -3,12 +3,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class BlackjackGUI extends JFrame {
-    private ArrayList<PlayerPanel> playerPanels = new ArrayList<>();
-    private Deck deck = new Deck();
-    private Dealer dealer = new Dealer();
-    private JLabel dealerLabel = new JLabel();
-    private JPanel playersPanel = new JPanel();
+public class BlackjackGUI extends JFrame { // Classe principale de l'interface graphique du jeu Blackjack
+    private ArrayList<PlayerPanel> playerPanels = new ArrayList<>(); // Liste des panneaux de joueurs
+    private Deck deck = new Deck(); // Paquet de cartes du jeu
+    private Dealer dealer = new Dealer(); // Croupier
+    private JLabel dealerLabel = new JLabel(); // Label pour afficher les cartes du croupier
+    private JPanel playersPanel = new JPanel(); // Panneau pour afficher les joueurs
 
     public BlackjackGUI() {
         setTitle("Blackjack");
