@@ -1,30 +1,31 @@
 package src;
 
-public class Card {
-    public enum Suit { HEARTS, DIAMONDS, CLUBS, SPADES }
-    public enum Rank { TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING, ACE }
+public class Card { // Classe représentant une carte
+    public enum Suit { COEUR, CARREAUX, TREFLE, PIQUE } // Couleurs des cartes
+    public enum Rank { DEUX, TROIS, QUATRE, CINQ, SIX, SEPT, HUIT, NEUF, DIX, VALET, REINE, ROI, AS } // Valeurs des cartes
 
-    public final Suit suit;
-    public final Rank rank;
+    public final Suit suit; // Couleur de la carte
+    public final Rank rank; // Valeur de la carte
 
-    public Card(Suit suit, Rank rank) {
-        this.suit = suit;
-        this.rank = rank;
+    public Card(Suit suit, Rank rank) { // Constructeur de la classe Card
+        this.suit = suit; // Couleur de la carte
+        this.rank = rank; // Valeur de la carte
     }
 
-    public int getValue() {
-        switch (rank) {
-            case JACK: case QUEEN: case KING:
-                return 10;
-            case ACE:
-                return 11;
-            default:
-                return rank.ordinal() + 2;
+    public int getValue() { // Retourne la valeur de la carte
+        switch (rank) { // Selon la valeur de la carte
+            case VALET: case REINE: case ROI: // Valets, Reines et Rois valent 10
+                return 10; // Retourne 10
+            case AS:// As peut valoir 1 ou 11
+                return 11; // Retourne 11
+            default: // Autres cartes valent leur valeur numérique
+                return rank.ordinal() + 2; // Retourne la valeur numérique de la carte
+                ////Ordinal prends la valeur de l'énumération du tableau (rank classe card) en commençant de 0 c'est pourquoi on ajoute 2
         }
     }
 
-    @Override
-    public String toString() {
-        return rank + " of " + suit;
+    @Override // Méthode toString pour afficher la carte
+    public String toString() { // Retourne une chaîne de caractères représentant la carte
+        return rank + " de " + suit; // Retourne la valeur et la couleur de la carte
     }
 }

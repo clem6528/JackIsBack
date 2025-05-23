@@ -4,115 +4,116 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerPanel extends JPanel {
-    private JLabel lblMise;
-    private JLabel lblCartes;
-    private JLabel lblScore;
-    private JButton btnMiser;
-    private JButton btnTirer;
-    private JButton btnRester;
-    private int mise = 0;
-    private int points = 0;
-    private List<Card> hand = new ArrayList<>();
-    private Deck deck;
-    private boolean hasPlayed = false;
-    private String playerName;
+public class PlayerPanel extends JPanel { // Classe représentant le panneau d'un joueur
+    private JLabel lblMise; // Label pour afficher la mise
+    private JLabel lblCartes; // Label pour afficher les cartes du joueur
+    private JLabel lblScore; // Label pour afficher le score du joueur
+    private JButton btnMiser; // Bouton pour miser
+    private JButton btnTirer; // Bouton pour tirer une carte
+    private JButton btnRester; // Bouton pour rester
+    private int mise = 0; // Mise actuelle du joueur
+    private int points = 0; // Points du joueur
+    private List<Card> hand = new ArrayList<>(); // Main du joueur
+    private Deck deck; // Paquet de cartes du jeu
+    private boolean hasPlayed = false; // Indicateur si le joueur a joué son tour
+    private String playerName; // Nom du joueur
 
-    public PlayerPanel(String name, Deck deck) {
-        this.deck = deck;
-        this.playerName = name;
-        setBorder(BorderFactory.createTitledBorder(name));
-        setLayout(new GridLayout(6, 1));
+    public PlayerPanel(String name, Deck deck) { // Constructeur de la classe PlayerPanel
+        this.deck = deck; // Paquet de cartes du jeu
+        this.playerName = name; // Nom du joueur
+        setBorder(BorderFactory.createTitledBorder(name)); // Crée une bordure avec le nom du joueur
+        setLayout(new GridLayout(6, 1)); // Définit la disposition du panneau
 
-        lblMise = new JLabel("Mise: 0€");
-        lblCartes = new JLabel("Cartes: []");
-        lblScore = new JLabel("Score: 0");
-        btnMiser = new JButton("Miser +10€");
-        btnTirer = new JButton("Tirer une carte");
-        btnRester = new JButton("Rester");
+        lblMise = new JLabel("Mise: 0€"); // Label pour afficher la mise
+        lblCartes = new JLabel("Cartes: []"); // Label pour afficher les cartes du joueur
+        lblScore = new JLabel("Score: 0"); // Label pour afficher le score du joueur
+        btnMiser = new JButton("Miser +10€"); // Bouton pour miser
+        btnTirer = new JButton("Tirer une carte"); // Bouton pour tirer une carte
+        btnRester = new JButton("Rester"); // Bouton pour rester
 
         // Donne 2 cartes au départ
         hand.add(deck.draw());
         hand.add(deck.draw());
         updateHandDisplay();
 
-        btnMiser.addActionListener(e -> {
-            mise += 10;
-            lblMise.setText("Mise: " + mise + "€");
+        btnMiser.addActionListener(e -> { // Action à effectuer lors du clic sur le bouton Miser
+            mise += 10; // Incrémente la mise de 10€
+            lblMise.setText("Mise: " + mise + "€"); // Met à jour le label de mise
         });
 
-        btnTirer.addActionListener(e -> {
-            if (!hasPlayed && deck != null && deckSize() > 0 && points < 21) {
-                Card c = deck.draw();
-                hand.add(c);
-                updateHandDisplay();
-                points = Utils.handValue(hand);
-                lblScore.setText("Score: " + points);
-                if (points >= 21) {
-                    hasPlayed = true;
-                    btnTirer.setEnabled(false);
-                    btnRester.setEnabled(false);
-                    if (points > 21) {
-                        JOptionPane.showMessageDialog(this, "Dépassement de 21 ! Vous avez perdu.");
-                    } else if (points == 21) {
-                        JOptionPane.showMessageDialog(this, "Blackjack ou 21 ! Tour terminé.");
+        btnTirer.addActionListener(e -> { // Action à effectuer lors du clic sur le bouton Tirer
+            if (!hasPlayed && deck != null && deckSize() > 0 && points < 21) { // Si le joueur n'a pas encore joué, le paquet de cartes n'est pas vide et le score est inférieur à 21   
+            Card c = deck.draw(); // Tire une carte du paquet
+                hand.add(c); // Ajoute la carte à la main du joueur
+                updateHandDisplay(); // Met à jour l'affichage de la main
+                points = Utils.handValue(hand); // Calcule la valeur de la main
+                lblScore.setText("Score: " + points); // Met à jour le label de score
+                if (points >= 21) { // Si le score est supérieur ou égal à 21
+                    hasPlayed = true; // Indique que le joueur a joué son tour 
+                    btnTirer.setEnabled(false); // Désactive le bouton Tirer
+                    btnRester.setEnabled(false); // Désactive le bouton Rester
+                    if (points > 21) { // Si le score dépasse 21
+                        JOptionPane.showMessageDialog(this, "Dépassement de 21 ! Vous avez perdu."); // Affiche un message de perte
+                    } else if (points == 21) { // Si le score est égal à 21
+                        JOptionPane.showMessageDialog(this, "Blackjack ou 21 ! Tour terminé."); // Affiche un message de victoire
                     }
                 }
             }
         });
 
-        btnRester.addActionListener(e -> {
-            hasPlayed = true;
-            btnTirer.setEnabled(false);
-            btnRester.setEnabled(false);
+        btnRester.addActionListener(e -> { // Action à effectuer lors du clic sur le bouton Rester
+            hasPlayed = true; // Indique que le joueur a joué son tour
+            btnTirer.setEnabled(false); // Désactive le bouton Tirer
+            btnRester.setEnabled(false); // Désactive le bouton Rester
         });
-
+        // Ajoute les composants au panneau
         add(lblMise);
         add(lblCartes);
         add(lblScore);
+        // Ajoute les boutons au panneau
         add(btnMiser);
         add(btnTirer);
         add(btnRester);
     }
 
-    public void newTurn() {
-        hasPlayed = false;
-        if (points < 21) {
-            btnTirer.setEnabled(true);
-            btnRester.setEnabled(true);
+    public void newTurn() { // Méthode pour commencer un nouveau tour
+        hasPlayed = false; // Réinitialise l'indicateur de tour
+        if (points < 21) { // Si le score est inférieur à 21
+            btnTirer.setEnabled(true); // Active le bouton Tirer
+            btnRester.setEnabled(true); // Active le bouton Rester
         }
     }
 
-    private void updateHandDisplay() {
-        StringBuilder sb = new StringBuilder();
-        for (Card c : hand) {
-            sb.append("[").append(c.toString()).append("] ");
+    private void updateHandDisplay() { // Met à jour l'affichage de la main du joueur
+        StringBuilder sb = new StringBuilder(); // Constructeur de la chaîne
+        for (Card c : hand) { // Pour chaque carte de la main
+            sb.append("[").append(c.toString()).append("] "); // Ajoute la carte à la chaîne
         }
-        lblCartes.setText("Cartes: " + sb.toString());
-        points = Utils.handValue(hand);
-        lblScore.setText("Score: " + points);
+        lblCartes.setText("Cartes: " + sb.toString()); // Met à jour le label de cartes
+        points = Utils.handValue(hand); // Calcule la valeur de la main
+        lblScore.setText("Score: " + points); // Met à jour le label de score
     }
 
-    private int deckSize() {
-        try {
-            java.lang.reflect.Field f = deck.getClass().getDeclaredField("cards");
-            f.setAccessible(true);
-            java.util.List<?> cards = (java.util.List<?>) f.get(deck);
-            return cards.size();
-        } catch (Exception e) {
-            return 0;
+    private int deckSize() { // Retourne la taille du paquet de cartes
+        try { // Utilise la réflexion (accède à des données d'une classe privée, gère les erreurs) pour accéder à la taille du paquet
+            java.lang.reflect.Field f = deck.getClass().getDeclaredField("cards"); // Accède au champ "cards" du paquet
+            f.setAccessible(true); // Rend le champ accessible
+            java.util.List<?> cards = (java.util.List<?>) f.get(deck); // Récupère la liste des cartes
+            return cards.size(); // Retourne la taille de la liste des cartes
+        } catch (Exception e) { // Gère les exceptions
+            return 0; // Retourne 0 en cas d'erreur
         }
     }
 
-    public int getPoints() {
+    public int getPoints() { // Retourne les points du joueur
         return points;
     }
 
-    public boolean hasPlayed() {
+    public boolean hasPlayed() { // Retourne si le joueur a joué son tour
         return hasPlayed;
     }
 
-    public String getPlayerName() {
+    public String getPlayerName() { // Retourne le nom du joueur
         return playerName;
     }
 }
