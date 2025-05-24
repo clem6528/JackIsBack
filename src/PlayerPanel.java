@@ -11,6 +11,7 @@ public class PlayerPanel extends JPanel { // Classe représentant le panneau d'u
     private JButton btnMiser; // Bouton pour miser
     private JButton btnTirer; // Bouton pour tirer une carte
     private JButton btnRester; // Bouton pour rester
+    // initialisation des variables
     private int mise = 0; // Mise actuelle du joueur
     private int points = 0; // Points du joueur
     private List<Card> hand = new ArrayList<>(); // Main du joueur
@@ -24,6 +25,8 @@ public class PlayerPanel extends JPanel { // Classe représentant le panneau d'u
         setBorder(BorderFactory.createTitledBorder(name +". A "+ victoire +" victoires")); // Crée une bordure avec le nom du joueur
         setLayout(new GridLayout(6, 1)); // Définit la disposition du panneau
 
+
+        //constructeurs dans java swing
         lblMise = new JLabel("Mise: 0€"); // Label pour afficher la mise
         lblCartes = new JLabel("Cartes: []"); // Label pour afficher les cartes du joueur
         lblScore = new JLabel("Score: 0"); // Label pour afficher le score du joueur
@@ -34,22 +37,33 @@ public class PlayerPanel extends JPanel { // Classe représentant le panneau d'u
         // Donne 2 cartes au départ
         hand.add(deck.draw());
         hand.add(deck.draw());
-        updateHandDisplay();
+        updateHandDisplay(); // Ligne N°90. Methode pour mettre à jour l'affichage de la main -> append
 
-        btnMiser.addActionListener(e -> { // Action à effectuer lors du clic sur le bouton Miser
+
+        // Pas terminé. Ne sert à rien pour l'instant
+        btnMiser.addActionListener(e -> { // Action à effectuer lors du clic sur le bouton Miser. Méthode dans java swing
             mise += 10; // Incrémente la mise de 10€
             lblMise.setText("Mise: " + mise + "€"); // Met à jour le label de mise
         });
+
+        // Ajoute les composants au panneau
+        add(lblMise);
+        add(lblCartes);
+        add(lblScore);
+        // Ajoute les boutons au panneau
+        add(btnMiser);
+        add(btnTirer);
+        add(btnRester);
 
         btnTirer.addActionListener(e -> { // Action à effectuer lors du clic sur le bouton Tirer
             if (!hasPlayed && deck != null && deckSize() > 0 && points < 21) { // Si le joueur n'a pas encore joué, le paquet de cartes n'est pas vide et le score est inférieur à 21   
             Card c = deck.draw(); // Tire une carte du paquet
                 hand.add(c); // Ajoute la carte à la main du joueur
                 updateHandDisplay(); // Met à jour l'affichage de la main
-                points = Utils.handValue(hand); // Calcule la valeur de la main
+                points = Utils.handValue(hand); // Calcule la valeur de la main avec la méthode Utils.handValue
                 lblScore.setText("Score: " + points); // Met à jour le label de score
                 if (points >= 21) { // Si le score est supérieur ou égal à 21
-                    hasPlayed = true; // Indique que le joueur a joué son tour 
+                    hasPlayed = true; // Indique que le joueur a joué son tour. Ne fonctionne pas encore méthode ligne N°87
                     btnTirer.setEnabled(false); // Désactive le bouton Tirer
                     btnRester.setEnabled(false); // Désactive le bouton Rester
                     if (points > 21) { // Si le score dépasse 21
@@ -66,16 +80,10 @@ public class PlayerPanel extends JPanel { // Classe représentant le panneau d'u
             btnTirer.setEnabled(false); // Désactive le bouton Tirer
             btnRester.setEnabled(false); // Désactive le bouton Rester
         });
-        // Ajoute les composants au panneau
-        add(lblMise);
-        add(lblCartes);
-        add(lblScore);
-        // Ajoute les boutons au panneau
-        add(btnMiser);
-        add(btnTirer);
-        add(btnRester);
     }
 
+
+    // La méthode ne foncionne pas...
     public void newTurn() { // Méthode pour commencer un nouveau tour
         hasPlayed = false; // Réinitialise l'indicateur de tour
         if (points < 21) { // Si le score est inférieur à 21
@@ -90,7 +98,7 @@ public class PlayerPanel extends JPanel { // Classe représentant le panneau d'u
             sb.append("[").append(c.toString()).append("] "); // Ajoute la carte à la chaîne
         }
         lblCartes.setText("Cartes: " + sb.toString()); // Met à jour le label de cartes
-        points = Utils.handValue(hand); // Calcule la valeur de la main
+        points = Utils.handValue(hand); // Calcule la valeur de la main méthode Utils.handValue
         lblScore.setText("Score: " + points); // Met à jour le label de score
     }
 

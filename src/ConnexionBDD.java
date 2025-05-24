@@ -13,6 +13,7 @@ public class ConnexionBDD {
             System.out.println("Connexion réussie à la base de données.");
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println("Connexion échoué à la base de données.");
         }
     }
     public static Connection getConnection() {

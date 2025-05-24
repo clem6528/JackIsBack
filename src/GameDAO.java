@@ -1,7 +1,7 @@
 package src;
 import java.sql.*;
 
-public class GameDAO {
+public class GameDAO { // Classe pour gérer les opérations de la base de données liées aux parties. Pas utilisée par manque de temps. Mais aurais permis l'enregistrement de l'état de jeux actuel sur la bdd
     public static void saveGame(int id, int scoreJ1, int scoreJ2) {
         try {
             PreparedStatement st = ConnexionBDD.getConnection().prepareStatement(
