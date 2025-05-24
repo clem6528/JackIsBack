@@ -3,6 +3,6 @@
         "."
     ],
     "java.project.referencedLibraries": [
-        "e:\\Documents\\Dossier\\ENIT\\ENIT\\S9\\Java\\ProjetJavaJackIsBack\\JackIsBack\\mysql-connector-java-5.1.48.jar"
+        "mysql-connector-java-5.1.48.jar"
     ]
 }
