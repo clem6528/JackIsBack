@@ -1,0 +1,138 @@
+@startuml
+
+class Card {
+    +Suit suit
+    +Rank rank
+    +Card(Suit, Rank)
+    +int getValue()
+    +String toString()
+}
+
+enum Suit {
+    COEUR
+    CARREAUX
+    TREFLE
+    PIQUE
+}
+
+enum Rank {
+    DEUX
+    TROIS
+    QUATRE
+    CINQ
+    SIX
+    SEPT
+    HUIT
+    NEUF
+    DIX
+    VALET
+    REINE
+    ROI
+    AS
+}
+
+class Deck {
+    -List<Card> cards
+    +Deck()
+    +void shuffle()
+    +Card draw()
+}
+
+class Player {
+    +String name
+    +int victories
+    +List<Card> hand
+    +boolean hasLost
+    +Player(String)
+    +void addCard(Card)
+    +int getScore()
+    +boolean isBusted()
+    +String handToString()
+}
+
+class Dealer {
+    +Dealer()
+    +boolean shouldDraw()
+}
+
+
+
+class PlayerPanel {
+    -JLabel lblMise
+    -JLabel lblCartes
+    -JLabel lblScore
+    -JButton btnMiser
+    -JButton btnTirer
+    -JButton btnRester
+    -int mise
+    -int points
+    -List<Card> hand
+    -Deck deck
+    -boolean hasPlayed
+    -String playerName
+    +PlayerPanel(String, int, Deck)
+    +void newTurn()
+    +int getPoints()
+    +boolean hasPlayed()
+    +String getPlayerName()
+}
+
+class BlackjackGUI {
+    -ArrayList<PlayerPanel> playerPanels
+    -Deck deck
+    -Dealer dealer
+    -JLabel dealerLabel
+    -JPanel playersPanel
+    +BlackjackGUI()
+    -int demanderNombreJoueurs()
+    -ArrayList<String> demanderNomsJoueurs(int)
+    -void updateDealerLabel()
+    -void gameLoop()
+}
+
+class PlayerDAO {
+    +void save(Player, boolean)
+    +int getVictoires(String)
+}
+
+class ConnexionBDD {
+    -Connection cn
+    +void connect()
+    +Connection getConnection()
+}
+
+class Utils {
+    +int handValue(List<Card>)
+}
+
+class Main {
+    -ConnectionBDD
+    -BlackjackGUI
+    +void main(String[])
+}
+
+class GameDAO {
+    +void saveGame(int, int, int)
+}
+
+Main <--> ConnexionBDD
+Main <--> BlackjackGUI
+Card <--> Suit
+Card <--> Rank
+Dealer <--|> Player
+BlackjackGUI <--> PlayerPanel
+BlackjackGUI <--> Deck
+BlackjackGUI <--> Dealer
+BlackjackGUI <--> PlayerDAO
+BlackjackGUI <--> ConnexionBDD
+PlayerPanel <--> Deck
+PlayerPanel <--> Card
+PlayerPanel <--> Utils
+PlayerDAO <--> Player
+PlayerDAO <--> ConnexionBDD
+Deck <--> Card
+Dealer <--> Card
+Player <--> Card
+GameDAO <--> ConnexionBDD
+
+@enduml

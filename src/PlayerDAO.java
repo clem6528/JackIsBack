@@ -30,7 +30,7 @@ public class PlayerDAO {
         } catch (Exception e) { e.printStackTrace(); }
     }
 
-    // Ajoute cette méthode pour récupérer le nombre de victoires
+    // Méthode pour récupérer le nombre de victoires. On l'affichera dans la GUI.
     public static int getVictoires(String nom) {
         int victoires = 0;
         try {
