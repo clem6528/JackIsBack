@@ -3,15 +3,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class BlackjackGUI extends JFrame { // Classe principale de l'interface graphique du jeu Blackjack
+public class BlackjackGUI extends JFrame { // Classe principale de l'interface graphique du jeu Blackjack. Récupère les attiributs de JFrame pour simplifier l'appel des méthodes de la librairie Swing.
     private ArrayList<PlayerPanel> playerPanels = new ArrayList<>(); // Liste des panneaux de joueurs
-    private Deck deck = new Deck(); // Paquet de cartes du jeu
-    private Dealer dealer = new Dealer(); // Croupier
+    private Deck deck = new Deck();
+    private Dealer dealer = new Dealer();
     private JLabel dealerLabel = new JLabel(); // Label pour afficher les cartes du croupier
     private JPanel playersPanel = new JPanel(); // Panneau pour afficher les joueurs
 
     public BlackjackGUI() { // Constructeur de la classe BlackjackGUI
-        setTitle("Blackjack"); // Titre de la fenêtre
+        setTitle("Blackjack");
         setDefaultCloseOperation(EXIT_ON_CLOSE); // Ferme l'application lorsque la fenêtre est fermée
         setLayout(new BorderLayout()); // Définit la disposition de la fenêtre
 
@@ -19,7 +19,7 @@ public class BlackjackGUI extends JFrame { // Classe principale de l'interface g
         int nbJoueurs = demanderNombreJoueurs();    
         ArrayList<String> noms = demanderNomsJoueurs(nbJoueurs);
 
-        //récupérer les victoires
+        // Récupérer les victoires
         ArrayList<Integer> victoire = new ArrayList<>(); // Liste pour stocker le nombre de victoires de chaque joueur
         for (int i =0; i < nbJoueurs; i++) { // Pour chaque joueur
             int victoires = PlayerDAO.getVictoires(noms.get(i)); // Récupère le nombre de victoires du joueur depuis la base de données
@@ -30,8 +30,8 @@ public class BlackjackGUI extends JFrame { // Classe principale de l'interface g
         playersPanel.setLayout(new GridLayout(1, nbJoueurs));
         for (int i = 0; i < nbJoueurs; i++) {
             PlayerPanel pp = new PlayerPanel(noms.get(i), victoire.get(i), deck); // il manquera les mises pour le rendre totalement fonctionnel
-            playerPanels.add(pp);
-            playersPanel.add(pp);
+            playerPanels.add(pp); // Ajoute le panneau du joueur à la liste
+            playersPanel.add(pp); // Ajoute le panneau du joueur au panneau principal
         }
 
         // Donne 2 cartes au croupier

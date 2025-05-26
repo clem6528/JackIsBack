@@ -12,15 +12,15 @@ public class PlayerDAO {
             if (rs.next()) {
                 // Le joueur existe, on met à jour le score seulement si victoire
                 if (gagne) {
-                    PreparedStatement update = cn.prepareStatement("UPDATE joueur SET victoires = victoires + 1 WHERE nom = ?");
-                    update.setString(1, p.name);
-                    update.executeUpdate();
-                    update.close();
+                    PreparedStatement update = cn.prepareStatement("UPDATE joueur SET victoires = victoires + 1 WHERE nom = ?"); // Prépare la requête de mise à jour
+                    update.setString(1, p.name); // Met à jour le nombre de victoires
+                    update.executeUpdate(); // Exécute la mise à jour
+                    update.close(); // Ferme la requête préparée
                 }
             } else {
                 // Le joueur n'existe pas, on l'insère (avec 1 victoire si gagnant, 0 sinon)
                 PreparedStatement insert = cn.prepareStatement("INSERT INTO joueur (nom, victoires) VALUES (?, ?)");
-                insert.setString(1, p.name);
+                insert.setString(1, p.name); // Insère le nom du joueur
                 insert.setInt(2, gagne ? 1 : 0);
                 insert.executeUpdate();
                 insert.close();
