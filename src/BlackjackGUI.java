@@ -46,7 +46,7 @@ public class BlackjackGUI extends JFrame { // Classe principale de l'interface g
         setVisible(true); // Affiche la fenêtre
 
         // Démarre la partie
-        new Thread(this::gameLoop).start();
+        new Thread(this::gameLoop).start(); // c'était dans l'optique d'enregistre les parties dans la base de données
     }
 
     private int demanderNombreJoueurs() { // Méthode pour demander le nombre de joueurs
